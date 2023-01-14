@@ -19,6 +19,12 @@ public class Tenant {
     public Tenant() {
     }
 
+    public Tenant(String tenantName, String tenantGender, String tenantAddress) {
+        this.tenantName = tenantName;
+        this.tenantGender = tenantGender;
+        this.tenantAddress = tenantAddress;
+    }
+
     public Tenant(Long tenantId, String tenantName, String tenantGender, String tenantAddress) {
         this.tenantId = tenantId;
         this.tenantName = tenantName;
