@@ -1,6 +1,7 @@
 package com.simplilearn.pga.controllers;
 
 import com.simplilearn.pga.models.Owner;
+import com.simplilearn.pga.models.Place;
 import com.simplilearn.pga.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -61,5 +62,37 @@ public class OwnerController {
         Owner owner = new Owner(owner_id, owner_name, owner_gender, owner_address);
         System.out.println(owner.getOwnerAddress() + owner.getOwnerName() + owner.getOwnerGender());
         return ownerService.addOwner(owner);
+    }
+    @RequestMapping("/owner/places/add")
+    public Place addPlaces(ModelMap modelMap,
+                           @RequestParam("place_name") String place_name,
+                           @RequestParam("place_address") String place_address) {
+        Owner owner = ownerService.getOwner(1l);
+        Place place = new Place(place_name, place_address, true, owner);
+        return ownerService.addPlace(place);
+    }
+
+    @RequestMapping("/owner/places/edit")
+    public Place addPlaces(ModelMap modelMap,
+                           @RequestParam("place_id") Long place_id,
+                           @RequestParam("place_name") String place_name,
+                           @RequestParam("place_address") String place_address,
+                           @RequestParam("place_status") boolean place_status) {
+        Owner owner = ownerService.getOwner(1l);
+        Place place = new Place(place_name, place_address, place_status, owner);
+        return ownerService.addPlace(place);
+    }
+
+    @RequestMapping("/owner/places")
+    public List<Place> getAllPlaces(ModelMap modelMap) {
+        List<Place> places = null;
+        try {
+            places = ownerService.getAllPlacesByOwner(1l);
+            return places;
+        } catch (Exception ex) {
+            modelMap.addAttribute("error", true);
+            modelMap.addAttribute("message", "NO DATA FOUND");
+            return places;
+        }
     }
 }
