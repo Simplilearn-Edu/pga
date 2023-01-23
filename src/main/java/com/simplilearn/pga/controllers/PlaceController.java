@@ -1,6 +1,5 @@
 package com.simplilearn.pga.controllers;
 
-import com.simplilearn.pga.models.Owner;
 import com.simplilearn.pga.models.Place;
 import com.simplilearn.pga.services.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
