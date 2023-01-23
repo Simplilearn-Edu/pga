@@ -4,6 +4,8 @@ import com.simplilearn.pga.models.Owner;
 import com.simplilearn.pga.models.Place;
 import com.simplilearn.pga.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,9 +47,9 @@ public class OwnerController {
 
     @RequestMapping("/owner/add")
     public Owner addOwner(ModelMap modelMap,
-                            @RequestParam("owner_name") String owner_name,
-                            @RequestParam("owner_gender") String owner_gender,
-                            @RequestParam("owner_address") String owner_address) {
+                          @RequestParam("owner_name") String owner_name,
+                          @RequestParam("owner_gender") String owner_gender,
+                          @RequestParam("owner_address") String owner_address) {
         Owner owner = new Owner(owner_name, owner_gender, owner_address);
         System.out.println(owner.getOwnerAddress() + owner.getOwnerName() + owner.getOwnerGender());
         return ownerService.addOwner(owner);
@@ -55,19 +57,20 @@ public class OwnerController {
 
     @RequestMapping("/owner/edit")
     public Owner editOwner(ModelMap modelMap,
-                             @RequestParam("owner_id") Long owner_id,
-                             @RequestParam("owner_name") String owner_name,
-                             @RequestParam("owner_gender") String owner_gender,
-                             @RequestParam("owner_address") String owner_address) {
+                           @RequestParam("owner_id") Long owner_id,
+                           @RequestParam("owner_name") String owner_name,
+                           @RequestParam("owner_gender") String owner_gender,
+                           @RequestParam("owner_address") String owner_address) {
         Owner owner = new Owner(owner_id, owner_name, owner_gender, owner_address);
         System.out.println(owner.getOwnerAddress() + owner.getOwnerName() + owner.getOwnerGender());
         return ownerService.addOwner(owner);
     }
+
     @RequestMapping("/owner/places/add")
     public Place addPlaces(ModelMap modelMap,
                            @RequestParam("place_name") String place_name,
                            @RequestParam("place_address") String place_address) {
-        Owner owner = ownerService.getOwner(1l);
+        Owner owner = ownerService.getOwner(2l);
         Place place = new Place(place_name, place_address, true, owner);
         return ownerService.addPlace(place);
     }
@@ -83,6 +86,18 @@ public class OwnerController {
         return ownerService.addPlace(place);
     }
 
+    @RequestMapping("/owner/places/delete/{placeId}")
+    public ResponseEntity<String> deletePlaces(ModelMap modelMap,
+                                               @PathVariable("placeId") Long place_id) {
+        Place place = ownerService.getPlaceByOwner(place_id, 1l);
+
+        if (place.isPlaceStatus()) {
+            ownerService.deletePlace(place_id);
+            return new ResponseEntity<>("Place Deleted Successfully", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Occupied place can not be deleted", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @RequestMapping("/owner/places")
     public List<Place> getAllPlaces(ModelMap modelMap) {
         List<Place> places = null;
@@ -93,6 +108,19 @@ public class OwnerController {
             modelMap.addAttribute("error", true);
             modelMap.addAttribute("message", "NO DATA FOUND");
             return places;
+        }
+    }
+
+    @RequestMapping("/owner/places/{id}")
+    public Place getAllPlaces(ModelMap modelMap, @PathVariable long id) {
+        Place place = null;
+        try {
+            place = ownerService.getPlaceByOwner(id, 1l);
+            return place;
+        } catch (Exception ex) {
+            modelMap.addAttribute("error", true);
+            modelMap.addAttribute("message", "NO DATA FOUND");
+            return place;
         }
     }
 }

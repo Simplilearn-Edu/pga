@@ -41,4 +41,12 @@ public class OwnerService {
     public List<Place> getAllPlacesByOwner(Long ownerId) {
         return placeRepository.findByPlaceOwner(ownerId);
     }
+
+    public Place getPlaceByOwner(long placeId,long ownerId) {
+        return placeRepository.findByPlaceOwnerId(placeId,ownerId);
+    }
+
+    public void deletePlace(Long placeId) {
+        placeRepository.deleteById(placeId);
+    }
 }
