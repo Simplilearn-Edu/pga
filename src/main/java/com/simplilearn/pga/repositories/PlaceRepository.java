@@ -19,6 +19,4 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
             "where upper(p.placeAddress) like upper(concat('%', ?1, '%')) and p.placeStatus = true " +
             "order by p.placeId")
     List<Place> getPlaceByLocality(String placeAddress);
-
-
 }

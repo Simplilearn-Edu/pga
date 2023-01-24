@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/places")
 public class PlaceController {
     @Autowired
     private PlaceService placeService;
 
-    @RequestMapping("/places")
+    @RequestMapping("/")
     public List<Place> getPlaces(ModelMap modelMap) {
 
         List<Place> places = null;
@@ -30,17 +31,17 @@ public class PlaceController {
         }
     }
 
-    @RequestMapping("/places/{place_id}")
+    @RequestMapping("/{place_id}")
     public Place getPlaceDetails(ModelMap modelMap,
-                           @PathVariable Long place_id) {
+                                 @PathVariable Long place_id) {
 
         Place place = placeService.getPlaceById(place_id);
         return place;
     }
 
-    @RequestMapping("/places/")
+    @RequestMapping("/search")
     public List<Place> getPlacesByLocality(ModelMap modelMap,
-                                 @RequestParam("locality") String place_locality) {
+                                           @RequestParam("locality") String place_locality) {
 
         List<Place> places = null;
         try {

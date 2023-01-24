@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/tenant")
 public class TenantController {
     @Autowired
     TenantService tenantService;
 
-    @RequestMapping("/tenant")
+    @RequestMapping("/")
     public List<Tenant> getTenant(ModelMap modelMap) {
         List<Tenant> tenants = null;
         try {
@@ -29,7 +30,7 @@ public class TenantController {
         }
     }
 
-    @RequestMapping("/tenant/{tenant_id}")
+    @RequestMapping("/{tenant_id}")
     public Tenant getTenant(ModelMap modelMap, @PathVariable Long tenant_id) {
         Tenant tenant = null;
         try {
@@ -42,7 +43,7 @@ public class TenantController {
         }
     }
 
-    @RequestMapping("/tenant/add")
+    @RequestMapping("/add")
     public Tenant addTenant(ModelMap modelMap,
                             @RequestParam("tenant_name") String tenant_name,
                             @RequestParam("tenant_gender") String tenant_gender,
@@ -52,7 +53,7 @@ public class TenantController {
         return tenantService.addTenant(tenant);
     }
 
-    @RequestMapping("/tenant/edit")
+    @RequestMapping("/edit")
     public Tenant editTenant(ModelMap modelMap,
                              @RequestParam("tenant_id") Long tenant_id,
                              @RequestParam("tenant_name") String tenant_name,

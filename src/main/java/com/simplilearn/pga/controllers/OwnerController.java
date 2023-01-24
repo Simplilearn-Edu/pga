@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/owner")
 public class OwnerController {
     @Autowired
     OwnerService ownerService;
 
-    @RequestMapping("/owner")
+    @RequestMapping("/")
     public List<Owner> getOwner(ModelMap modelMap) {
         List<Owner> owners = null;
         try {
@@ -32,7 +33,7 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping("/owner/{owner_id}")
+    @RequestMapping("/{owner_id}")
     public Owner getOwner(ModelMap modelMap, @PathVariable Long owner_id) {
         Owner owner = null;
         try {
@@ -45,7 +46,7 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping("/owner/add")
+    @RequestMapping("/add")
     public Owner addOwner(ModelMap modelMap,
                           @RequestParam("owner_name") String owner_name,
                           @RequestParam("owner_gender") String owner_gender,
@@ -55,7 +56,7 @@ public class OwnerController {
         return ownerService.addOwner(owner);
     }
 
-    @RequestMapping("/owner/edit")
+    @RequestMapping("/edit")
     public Owner editOwner(ModelMap modelMap,
                            @RequestParam("owner_id") Long owner_id,
                            @RequestParam("owner_name") String owner_name,
@@ -66,7 +67,7 @@ public class OwnerController {
         return ownerService.addOwner(owner);
     }
 
-    @RequestMapping("/owner/places/add")
+    @RequestMapping("/places/add")
     public Place addPlaces(ModelMap modelMap,
                            @RequestParam("place_name") String place_name,
                            @RequestParam("place_address") String place_address) {
@@ -75,7 +76,7 @@ public class OwnerController {
         return ownerService.addPlace(place);
     }
 
-    @RequestMapping("/owner/places/edit")
+    @RequestMapping("/places/edit")
     public Place addPlaces(ModelMap modelMap,
                            @RequestParam("place_id") Long place_id,
                            @RequestParam("place_name") String place_name,
@@ -86,7 +87,7 @@ public class OwnerController {
         return ownerService.addPlace(place);
     }
 
-    @RequestMapping("/owner/places/delete/{placeId}")
+    @RequestMapping("/places/delete/{placeId}")
     public ResponseEntity<String> deletePlaces(ModelMap modelMap,
                                                @PathVariable("placeId") Long place_id) {
         Place place = ownerService.getPlaceByOwner(place_id, 1l);
@@ -98,7 +99,7 @@ public class OwnerController {
         return new ResponseEntity<>("Occupied place can not be deleted", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @RequestMapping("/owner/places")
+    @RequestMapping("/places")
     public List<Place> getAllPlaces(ModelMap modelMap) {
         List<Place> places = null;
         try {
@@ -111,7 +112,7 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping("/owner/places/{id}")
+    @RequestMapping("/places/{id}")
     public Place getAllPlaces(ModelMap modelMap, @PathVariable long id) {
         Place place = null;
         try {
