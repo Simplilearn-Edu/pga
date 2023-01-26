@@ -5,7 +5,7 @@
 <%@ page isELIgnored="false" %>
 <html>
     <head>
-        <title>Subscription Plan :: ${plan.planTitle}</title>
+        <title>PG Place :: ${place.placeName}</title>
         <style type="text/css">
         		table,th,td{
         			border: 1px solid black;
@@ -18,28 +18,28 @@
 
     <body>
         <jsp:include page="header.jsp" ></jsp:include>
-        <h2>Subscription Plan Information</h2>
+        <h2>Place Information</h2>
         <c:if test="${error} eq true">
             <h3>${error}</h3>
         </c:if>
         <table>
     		<thead>
     			<tr>
-    				<th colspan="2"><h2>${plan.planTitle}</h2></th>
+    				<th colspan="2"><h2>${place.placeName}</h2></th>
     			</tr>
     		</thead>
     		<tbody>
     			<tr>
     				<td>ID</td>
-    				<td>${plan.planId}</td>
+    				<td>${place.placeId}</td>
                 </tr>
                 <tr>
-                    <td>Duration(Months)</td>
-                    <td>${plan.planDuration}</td>
+                    <td>Address</td>
+                    <td>${place.placeAddress}</td>
                 </tr>
                 <tr>
-                    <td>Fees</td>
-                    <td>INR. ${plan.planFees}</td>
+                    <td>Status</td>
+                    <td>${place.placeStatus}</td>
                 </tr>
     		</tbody>
     	</table>

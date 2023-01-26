@@ -6,6 +6,7 @@ import com.simplilearn.pga.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+//@RestController
+@Controller
 @RequestMapping(path = "/owner")
 public class OwnerController {
     @Autowired
@@ -100,28 +102,31 @@ public class OwnerController {
     }
 
     @RequestMapping("/places")
-    public List<Place> getAllPlaces(ModelMap modelMap) {
+    public String getAllPlaces(ModelMap modelMap) {
         List<Place> places = null;
         try {
             places = ownerService.getAllPlacesByOwner(1l);
-            return places;
+            modelMap.addAttribute("places", places);
+            modelMap.addAttribute("message", "TOTAL " + places.size() + " RECORDS FOUND");
+            return "place-list";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);
             modelMap.addAttribute("message", "NO DATA FOUND");
-            return places;
+            return "place-list";
         }
     }
 
     @RequestMapping("/places/{id}")
-    public Place getAllPlaces(ModelMap modelMap, @PathVariable long id) {
+    public String getAllPlaces(ModelMap modelMap, @PathVariable long id) {
         Place place = null;
         try {
             place = ownerService.getPlaceByOwner(id, 1l);
-            return place;
+            modelMap.addAttribute("place",place);
+            return "place-single";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);
             modelMap.addAttribute("message", "NO DATA FOUND");
-            return place;
+            return "place-single";
         }
     }
 }

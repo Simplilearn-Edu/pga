@@ -25,27 +25,27 @@
         <table>
             <thead>
                 <tr>
-                    <td colspan="5"><a href="subscriptionplan/add-new" style="float:right"><button>Add New SubscriptionPlans</button></a></td>
+                    <td colspan="5"><a href="owner/add-new" style="float:right"><button>Add New Places</button></a></td>
                 </tr>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Duration(Months)</th>
-                    <th>Fees</th>
+                    <th>Name of PG Place</th>
+                    <th>Address</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${subscriptionPlans}" var="subscriptionPlan">
+                <c:forEach items="${places}" var="place">
                 <tr>
-                    <td>${subscriptionPlan.planId}</td>
-                    <td>${subscriptionPlan.planTitle}</td>
-                    <td>${subscriptionPlan.planDuration}</td>
-                    <td>INR. ${subscriptionPlan.planFees}</td>
+                    <td>${place.placeId}</td>
+                    <td>${place.placeName}</td>
+                    <td>${place.placeAddress}</td>
+                    <td><c:if test="${place.placeStatus==true}">Available</c:if></td>
                     <td>
-                        <a href="subscriptionplan/${subscriptionPlan.planId}"><button>View</button></a>
-                        <a href="subscriptionplan/edit-plan/${subscriptionPlan.planId}"><button>Edit</button></a>
-                        <a href="subscriptionplan/delete/${subscriptionPlan.planId}"><button>Delete</button></a>
+                        <a href="places/${place.placeId}"><button>View</button></a>
+                        <a href="places/edit-place/${place.placeId}"><button>Edit</button></a>
+                        <a href="places/delete/${place.placeId}"><button>Delete</button></a>
                     </td>
                 </tr>
                 </c:forEach>

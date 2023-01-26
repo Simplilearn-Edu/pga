@@ -33,10 +33,8 @@ pageEncoding="UTF-8"%>
     <table>
         <tbody>
             <tr>
-                <th><a href="/subscriber">Subscribers</a></th>
-                <th><a href="/trainer">Trainers</a></th>
-                <th><a href="/subscriptionplan">Subscription Plans</a></th>
-                <th><a href="/payment">Payments</a></th>
+                <th><a href="/places">Places</a></th>
+                <th><a href="/enquiries">Enquiries</a></th>
                 <th><a href="/logout">Log Out</a></th>
                 <th colspan="5"><u style="text-align:right">Welcome, ${adminName}</u></th>
             </tr>
