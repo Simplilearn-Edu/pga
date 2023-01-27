@@ -17,11 +17,11 @@
     </head>
 
     <body>
-        <jsp:include page="header.jsp" ></jsp:include>
+        <jsp:include page="owner_header.jsp" ></jsp:include>
         <c:if test="${error==true || success==true}">
             ${message}
         </c:if>
-        <h2>Subscription Plans</h2>
+        <h2>PG Places</h2>
         <table>
             <thead>
                 <tr>

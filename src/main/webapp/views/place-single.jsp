@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <jsp:include page="header.jsp" ></jsp:include>
+        <jsp:include page="owner_header.jsp" ></jsp:include>
         <h2>Place Information</h2>
         <c:if test="${error} eq true">
             <h3>${error}</h3>
