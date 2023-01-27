@@ -83,17 +83,23 @@ public class OwnerController {
         ownerService.addPlace(place);
         return "redirect:/owner/places";
     }
-
+    @RequestMapping("/places/edit-place/{place_id}")
+    public String editPlaces(ModelMap modelMap,@PathVariable Long place_id) {
+        Place place = ownerService.getPlaceByOwner(place_id,1l);
+        modelMap.addAttribute("place",place);
+        return "edit-place";
+    }
     @RequestMapping("/places/edit")
-    public Place addPlaces(ModelMap modelMap,
+    public String addPlaces(ModelMap modelMap,
                            @RequestParam("place_id") Long place_id,
                            @RequestParam("place_name") String place_name,
                            @RequestParam("place_address") String place_address,
                            @RequestParam("place_rent") int place_rent,
                            @RequestParam("place_status") boolean place_status) {
         Owner owner = ownerService.getOwner(1l);
-        Place place = new Place(place_name, place_address, place_rent, place_status, owner);
-        return ownerService.addPlace(place);
+        Place place = new Place(place_id,place_name, place_address, place_rent, place_status, owner);
+        ownerService.addPlace(place);
+        return "redirect:/owner/places";
     }
 
     @RequestMapping("/places/delete/{placeId}")

@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Edit Plan :: ${plan.planTitle}</title>
+	<title>Edit Place :: ${place.placeName}</title>
 	<style type="text/css">
         td{
             border: 1px solid black;
@@ -32,42 +32,43 @@
 </head>
 <body>
     <jsp:include page="header.jsp"></jsp:include>
-    <h2>Plan Information</h2>
+    <h2>Place Information</h2>
     <c:if test="${error==true || success==true}">
         ${message}
     </c:if>
 	<div class="formdiv">
-		<form action="/subscriptionplan/edit" method="POST">
+		<form action="/owner/places/edit" method="POST">
 			<table>
 				<thead>
 					<tr>
-						<th colspan="2"><h3>Edit Plan - ${plan.planTitle}</h3></th>
+						<th colspan="2"><h3>Edit Place - ${place.placeName}</h3></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
                         <td>
-                            <label for="plan_title">Plan Title</label>
+                            <label for="place_name">Place Name</label>
                         </td>
                         <td>
-                            <input type="hidden" id="plan_id" class="hidden" name="plan_id" value="${plan.planId}">
-                            <input type="text" id="plan_title" class="input" name="plan_title" value="${plan.planTitle}">
+                            <input type="hidden" id="place_id" class="hidden" name="place_id" value="${place.placeId}">
+                            <input type="text" id="place_name" class="input" name="place_name" value="${place.placeName}">
                         </td>
                     </tr>
                     <tr>
 						<td>
-							<label for="plan_duration">Plan Duration (Months)</label>
+							<label for="place_address">Place Address</label>
 						</td>
 						<td>
-							<input type="number" id="plan_duration" class="input" name="plan_duration" value="${plan.planDuration}">
+							<textarea id="place_address" class="input" name="place_address" >${place.placeAddress}</textarea>
 						</td>
 					</tr>
 					<tr>
                         <td>
-                            <label for="plan_fees">Plan Fees (INR)</label>
+                            <label for="place_rent">Place Rent(Per Month)</label>
                         </td>
                         <td>
-                            <input type="number" id="plan_fees" class="input" name="plan_fees" value="${plan.planFees}">
+                            <input type="number" id="place_rent" class="input" name="place_rent" value="${place.placeRent}">
+                            <input type="hidden" id="place_status" class="input" name="place_status" value="${place.placeStatus}">
                         </td>
                     </tr>
 					<tr>
