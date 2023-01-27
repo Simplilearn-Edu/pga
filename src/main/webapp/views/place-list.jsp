@@ -5,7 +5,7 @@
 <%@ page isELIgnored="false" %>
 <html>
     <head>
-        <title>Subscription Plans</title>
+        <title>PG Places</title>
         <style type="text/css">
         		table,th,td{
         			border: 1px solid black;
@@ -25,12 +25,13 @@
         <table>
             <thead>
                 <tr>
-                    <td colspan="5"><a href="owner/add-new" style="float:right"><button>Add New Places</button></a></td>
+                    <td colspan="6"><a href="places/add-new" style="float:right"><button>Add New Places</button></a></td>
                 </tr>
                 <tr>
                     <th>ID</th>
                     <th>Name of PG Place</th>
                     <th>Address</th>
+                    <th>Rent</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -41,6 +42,7 @@
                     <td>${place.placeId}</td>
                     <td>${place.placeName}</td>
                     <td>${place.placeAddress}</td>
+                    <td>${place.placeRent}</td>
                     <td><c:if test="${place.placeStatus==true}">Available</c:if></td>
                     <td>
                         <a href="places/${place.placeId}"><button>View</button></a>
@@ -52,7 +54,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5">${message}</td>
+                    <td colspan="6">${message}</td>
                 </tr>
             </tfoot>
         </table>

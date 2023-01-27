@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -69,13 +68,20 @@ public class OwnerController {
         return ownerService.addOwner(owner);
     }
 
+    @RequestMapping("/places/add-new")
+    public String addPlaces() {
+        return "add-place";
+    }
+
     @RequestMapping("/places/add")
-    public Place addPlaces(ModelMap modelMap,
-                           @RequestParam("place_name") String place_name,
-                           @RequestParam("place_address") String place_address) {
+    public String addPlaces(ModelMap modelMap,
+                            @RequestParam("place_name") String place_name,
+                            @RequestParam("place_address") String place_address,
+                            @RequestParam("place_rent") int place_rent) {
         Owner owner = ownerService.getOwner(2l);
-        Place place = new Place(place_name, place_address, true, owner);
-        return ownerService.addPlace(place);
+        Place place = new Place(place_name, place_address, place_rent, true, owner);
+        ownerService.addPlace(place);
+        return "redirect:/owner/places";
     }
 
     @RequestMapping("/places/edit")
@@ -83,9 +89,10 @@ public class OwnerController {
                            @RequestParam("place_id") Long place_id,
                            @RequestParam("place_name") String place_name,
                            @RequestParam("place_address") String place_address,
+                           @RequestParam("place_rent") int place_rent,
                            @RequestParam("place_status") boolean place_status) {
         Owner owner = ownerService.getOwner(1l);
-        Place place = new Place(place_name, place_address, place_status, owner);
+        Place place = new Place(place_name, place_address, place_rent, place_status, owner);
         return ownerService.addPlace(place);
     }
 
@@ -121,7 +128,7 @@ public class OwnerController {
         Place place = null;
         try {
             place = ownerService.getPlaceByOwner(id, 1l);
-            modelMap.addAttribute("place",place);
+            modelMap.addAttribute("place", place);
             return "place-single";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);

@@ -13,6 +13,10 @@ public class Place {
     private String placeName;
     @Column(name = "place_address")
     private String placeAddress;
+
+    @Column(name = "place_rent")
+    private int placeRent;
+
     @Column(name = "place_status")
     private boolean placeStatus;
     @OneToOne
@@ -22,17 +26,19 @@ public class Place {
     public Place() {
     }
 
-    public Place(Long placeId, String placeName, String placeAddress, boolean placeStatus, Owner placeOwner) {
-        this.placeId = placeId;
+    public Place(String placeName, String placeAddress, int placeRent, boolean placeStatus, Owner placeOwner) {
         this.placeName = placeName;
         this.placeAddress = placeAddress;
+        this.placeRent = placeRent;
         this.placeStatus = placeStatus;
         this.placeOwner = placeOwner;
     }
 
-    public Place(String placeName, String placeAddress, boolean placeStatus, Owner placeOwner) {
+    public Place(Long placeId, String placeName, String placeAddress, int placeRent, boolean placeStatus, Owner placeOwner) {
+        this.placeId = placeId;
         this.placeName = placeName;
         this.placeAddress = placeAddress;
+        this.placeRent = placeRent;
         this.placeStatus = placeStatus;
         this.placeOwner = placeOwner;
     }
@@ -77,12 +83,21 @@ public class Place {
         this.placeOwner = placeOwner;
     }
 
+    public int getPlaceRent() {
+        return placeRent;
+    }
+
+    public void setPlaceRent(int placeRent) {
+        this.placeRent = placeRent;
+    }
+
     @Override
     public String toString() {
         return "Place{" +
                 "placeId=" + placeId +
                 ", placeName='" + placeName + '\'' +
                 ", placeAddress='" + placeAddress + '\'' +
+                ", placeRent='" + placeRent + '\'' +
                 ", placeStatus=" + placeStatus +
                 ", placeOwner=" + placeOwner +
                 '}';

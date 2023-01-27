@@ -38,6 +38,10 @@
                     <td>${place.placeAddress}</td>
                 </tr>
                 <tr>
+                    <td>Rent</td>
+                    <td>${place.placeRent}</td>
+                </tr>
+                <tr>
                     <td>Status</td>
                     <td>${place.placeStatus}</td>
                 </tr>
