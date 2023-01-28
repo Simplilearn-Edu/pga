@@ -106,7 +106,7 @@ public class OwnerController {
     public String addPlaces(ModelMap modelMap, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("ownerId") == null) {
-            return "redirect:/";
+            return "redirect:/owner/";
         }
 
         String[] cities = {"Delhi", "Mumbai", "Pune", "Bengaluru", "Hyderabad", "Chennai", "Surat"};
@@ -130,7 +130,7 @@ public class OwnerController {
         Owner owner = ownerService.getOwner(ownerId);
         Place place = new Place(place_name, place_address, place_city, place_rent, true, owner);
         ownerService.addPlace(place);
-        return "redirect:places";
+        return "redirect:/owner/places";
     }
 
     @RequestMapping("/places/edit-place/{place_id}")
@@ -153,7 +153,7 @@ public class OwnerController {
         Owner owner = ownerService.getOwner(1l);
         Place place = new Place(place_id, place_name, place_address, place_city, place_rent, place_status, owner);
         ownerService.addPlace(place);
-        return "redirect:/owner/places";
+        return "redirect:places";
     }
 
     @RequestMapping("/places/delete/{placeId}")
@@ -169,7 +169,11 @@ public class OwnerController {
     }
 
     @RequestMapping("/places")
-    public String getAllPlaces(ModelMap modelMap) {
+    public String getAllPlaces(ModelMap modelMap,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/owner/";
+        }
         List<Place> places = null;
         try {
             places = ownerService.getAllPlacesByOwner(1l);

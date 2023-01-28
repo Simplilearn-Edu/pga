@@ -66,7 +66,7 @@
                             <label for="place_city">Center City</label>
                         </td>
                         <td>
-                            <select id="place_city" name="place_city" class="input">
+                            <select id="place_city" name="place_city">
                                 <option value="">Select city</option>
                                 <c:forEach items="${cities}" var="city">
                                     <option value="${city}">${city}</option>
