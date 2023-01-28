@@ -32,7 +32,7 @@ public class PlaceController {
         return "place-list";
     }
 
-    @RequestMapping("/{place_id}")
+    @RequestMapping("/details/{place_id}")
     public String getPlaceDetails(ModelMap modelMap,
                                   @PathVariable Long place_id) {
 

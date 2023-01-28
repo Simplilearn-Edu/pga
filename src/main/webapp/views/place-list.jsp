@@ -31,6 +31,7 @@
                     <th>ID</th>
                     <th>Name of PG Place</th>
                     <th>Address</th>
+                    <th>City</th>
                     <th>Rent</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -42,6 +43,7 @@
                     <td>${place.placeId}</td>
                     <td>${place.placeName}</td>
                     <td>${place.placeAddress}</td>
+                    <td>${place.placeCity}</td>
                     <td>${place.placeRent}</td>
                     <td><c:if test="${place.placeStatus==true}">Available</c:if></td>
                     <td>

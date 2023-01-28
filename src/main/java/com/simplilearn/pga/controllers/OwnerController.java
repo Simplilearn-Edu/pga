@@ -69,7 +69,10 @@ public class OwnerController {
     }
 
     @RequestMapping("/places/add-new")
-    public String addPlaces() {
+    public String addPlaces(ModelMap modelMap) {
+
+        String[] cities = {"Delhi", "Mumbai", "Pune", "Bengaluru", "Hyderabad", "Chennai", "Surat"};
+        modelMap.addAttribute("cities", cities);
         return "add-place";
     }
 
@@ -77,27 +80,33 @@ public class OwnerController {
     public String addPlaces(ModelMap modelMap,
                             @RequestParam("place_name") String place_name,
                             @RequestParam("place_address") String place_address,
+                            @RequestParam("place_city") String place_city,
                             @RequestParam("place_rent") int place_rent) {
         Owner owner = ownerService.getOwner(2l);
-        Place place = new Place(place_name, place_address, place_rent, true, owner);
+        Place place = new Place(place_name, place_address, place_city, place_rent, true, owner);
         ownerService.addPlace(place);
         return "redirect:/owner/places";
     }
+
     @RequestMapping("/places/edit-place/{place_id}")
-    public String editPlaces(ModelMap modelMap,@PathVariable Long place_id) {
-        Place place = ownerService.getPlaceByOwner(place_id,1l);
-        modelMap.addAttribute("place",place);
+    public String editPlaces(ModelMap modelMap, @PathVariable Long place_id) {
+        String[] cities = {"Delhi", "Mumbai", "Pune", "Bengaluru", "Hyderabad", "Chennai", "Surat"};
+        modelMap.addAttribute("cities", cities);
+        Place place = ownerService.getPlaceByOwner(place_id, 1l);
+        modelMap.addAttribute("place", place);
         return "edit-place";
     }
+
     @RequestMapping("/places/edit")
     public String addPlaces(ModelMap modelMap,
-                           @RequestParam("place_id") Long place_id,
-                           @RequestParam("place_name") String place_name,
-                           @RequestParam("place_address") String place_address,
-                           @RequestParam("place_rent") int place_rent,
-                           @RequestParam("place_status") boolean place_status) {
+                            @RequestParam("place_id") Long place_id,
+                            @RequestParam("place_name") String place_name,
+                            @RequestParam("place_address") String place_address,
+                            @RequestParam("place_city") String place_city,
+                            @RequestParam("place_rent") int place_rent,
+                            @RequestParam("place_status") boolean place_status) {
         Owner owner = ownerService.getOwner(1l);
-        Place place = new Place(place_id,place_name, place_address, place_rent, place_status, owner);
+        Place place = new Place(place_id, place_name, place_address, place_city, place_rent, place_status, owner);
         ownerService.addPlace(place);
         return "redirect:/owner/places";
     }

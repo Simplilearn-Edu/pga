@@ -14,6 +14,8 @@ public class Place {
     @Column(name = "place_address")
     private String placeAddress;
 
+    @Column(name = "place_city")
+    private String placeCity;
     @Column(name = "place_rent")
     private int placeRent;
 
@@ -26,18 +28,20 @@ public class Place {
     public Place() {
     }
 
-    public Place(String placeName, String placeAddress, int placeRent, boolean placeStatus, Owner placeOwner) {
+    public Place(Long placeId, String placeName, String placeAddress, String placeCity, int placeRent, boolean placeStatus, Owner placeOwner) {
+        this.placeId = placeId;
         this.placeName = placeName;
         this.placeAddress = placeAddress;
+        this.placeCity = placeCity;
         this.placeRent = placeRent;
         this.placeStatus = placeStatus;
         this.placeOwner = placeOwner;
     }
 
-    public Place(Long placeId, String placeName, String placeAddress, int placeRent, boolean placeStatus, Owner placeOwner) {
-        this.placeId = placeId;
+    public Place(String placeName, String placeAddress, String placeCity, int placeRent, boolean placeStatus, Owner placeOwner) {
         this.placeName = placeName;
         this.placeAddress = placeAddress;
+        this.placeCity = placeCity;
         this.placeRent = placeRent;
         this.placeStatus = placeStatus;
         this.placeOwner = placeOwner;
@@ -91,13 +95,22 @@ public class Place {
         this.placeRent = placeRent;
     }
 
+    public String getPlaceCity() {
+        return placeCity;
+    }
+
+    public void setPlaceCity(String placeCity) {
+        this.placeCity = placeCity;
+    }
+
     @Override
     public String toString() {
         return "Place{" +
                 "placeId=" + placeId +
                 ", placeName='" + placeName + '\'' +
                 ", placeAddress='" + placeAddress + '\'' +
-                ", placeRent='" + placeRent + '\'' +
+                ", placeCity='" + placeCity + '\'' +
+                ", placeRent=" + placeRent +
                 ", placeStatus=" + placeStatus +
                 ", placeOwner=" + placeOwner +
                 '}';

@@ -64,6 +64,21 @@
 					</tr>
 					<tr>
                         <td>
+                            <label for="place_city">Place City</label>
+                        </td>
+                        <td>
+                            <select id="place_city" name="place_city" class="input">
+                                <option value="">Select city</option>
+                                <c:forEach items="${cities}" var="city">
+                                    <option value="${city}" <c:if test="${city == place.placeCity}">selected</c:if>>
+                                        ${city}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+					<tr>
+                        <td>
                             <label for="place_rent">Place Rent(Per Month)</label>
                         </td>
                         <td>

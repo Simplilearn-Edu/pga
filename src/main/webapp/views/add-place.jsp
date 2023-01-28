@@ -63,6 +63,19 @@
 					</tr>
 					<tr>
                         <td>
+                            <label for="place_city">Center City</label>
+                        </td>
+                        <td>
+                            <select id="place_city" name="place_city" class="input">
+                                <option value="">Select city</option>
+                                <c:forEach items="${cities}" var="city">
+                                    <option value="${city}">${city}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+					<tr>
+                        <td>
                             <label for="place_rent">Place Rent (INR)</label>
                         </td>
                         <td>
