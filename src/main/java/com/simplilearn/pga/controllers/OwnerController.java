@@ -27,6 +27,7 @@ public class OwnerController {
     @RequestMapping("/")
     private String home(ModelMap modelMap) {
         modelMap.addAttribute("pagetitle", "Login");
+        modelMap.addAttribute("user", "Owner");
         return "login";
     }
 
@@ -44,7 +45,9 @@ public class OwnerController {
         }
         HttpSession session = request.getSession();
         session.setAttribute("ownerId", owner.getOwnerId());
-        session.setAttribute("ownerName", owner.getOwnerName());
+        session.setAttribute("userName", owner.getOwnerName());
+        session.setAttribute("user", "owner");
+
         return "redirect:places";
     }
 
@@ -52,7 +55,7 @@ public class OwnerController {
     public String logout(ModelMap modelMap, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/owner/";
     }
 
     /*@RequestMapping("/")
@@ -124,7 +127,7 @@ public class OwnerController {
 
         HttpSession session = request.getSession();
         if (session.getAttribute("ownerId") == null) {
-            return "redirect:/";
+            return "redirect:/owner/";
         }
         long ownerId = (Long) session.getAttribute("ownerId");
         Owner owner = ownerService.getOwner(ownerId);
@@ -134,49 +137,68 @@ public class OwnerController {
     }
 
     @RequestMapping("/places/edit-place/{place_id}")
-    public String editPlaces(ModelMap modelMap, @PathVariable Long place_id) {
+    public String editPlaces(ModelMap modelMap, HttpServletRequest request, @PathVariable Long place_id) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/owner/";
+        }
         String[] cities = {"Delhi", "Mumbai", "Pune", "Bengaluru", "Hyderabad", "Chennai", "Surat"};
         modelMap.addAttribute("cities", cities);
-        Place place = ownerService.getPlaceByOwner(place_id, 1l);
+        long ownerId = (Long) session.getAttribute("ownerId");
+
+        Place place = ownerService.getPlaceByOwner(place_id, ownerId);
         modelMap.addAttribute("place", place);
         return "edit-place";
     }
 
     @RequestMapping("/places/edit")
-    public String addPlaces(ModelMap modelMap,
+    public String addPlaces(ModelMap modelMap, HttpServletRequest request,
                             @RequestParam("place_id") Long place_id,
                             @RequestParam("place_name") String place_name,
                             @RequestParam("place_address") String place_address,
                             @RequestParam("place_city") String place_city,
                             @RequestParam("place_rent") int place_rent,
                             @RequestParam("place_status") boolean place_status) {
-        Owner owner = ownerService.getOwner(1l);
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/owner/";
+        }
+        long ownerId = (Long) session.getAttribute("ownerId");
+        Owner owner = ownerService.getOwner(ownerId);
         Place place = new Place(place_id, place_name, place_address, place_city, place_rent, place_status, owner);
         ownerService.addPlace(place);
-        return "redirect:places";
+        return "redirect:/owner/places";
     }
 
     @RequestMapping("/places/delete/{placeId}")
-    public ResponseEntity<String> deletePlaces(ModelMap modelMap,
-                                               @PathVariable("placeId") Long place_id) {
+    public String deletePlaces(ModelMap modelMap, HttpServletRequest request,
+                               @PathVariable("placeId") Long place_id) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/owner/";
+        }
+        long ownerId = (Long) session.getAttribute("ownerId");
         Place place = ownerService.getPlaceByOwner(place_id, 1l);
 
         if (place.isPlaceStatus()) {
             ownerService.deletePlace(place_id);
-            return new ResponseEntity<>("Place Deleted Successfully", HttpStatus.OK);
+            return "redirect:/owner/places";
         }
-        return new ResponseEntity<>("Occupied place can not be deleted", HttpStatus.INTERNAL_SERVER_ERROR);
+        modelMap.addAttribute("error", true);
+        modelMap.addAttribute("message", "Occupied place cannot be deleted");
+        return "owner-place-list";
     }
 
     @RequestMapping("/places")
-    public String getAllPlaces(ModelMap modelMap,HttpServletRequest request) {
+    public String getAllPlaces(ModelMap modelMap, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("ownerId") == null) {
             return "redirect:/owner/";
         }
         List<Place> places = null;
         try {
-            places = ownerService.getAllPlacesByOwner(1l);
+            long ownerId = (Long) session.getAttribute("ownerId");
+            places = ownerService.getAllPlacesByOwner(ownerId);
             modelMap.addAttribute("places", places);
             modelMap.addAttribute("message", "TOTAL " + places.size() + " RECORDS FOUND");
             return "owner-place-list";
@@ -188,10 +210,16 @@ public class OwnerController {
     }
 
     @RequestMapping("/places/{id}")
-    public String getAllPlaces(ModelMap modelMap, @PathVariable long id) {
+    public String getAllPlaces(ModelMap modelMap, HttpServletRequest request, @PathVariable long id) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/owner/";
+        }
         Place place = null;
+
         try {
-            place = ownerService.getPlaceByOwner(id, 1l);
+            long ownerId = (Long) session.getAttribute("ownerId");
+            place = ownerService.getPlaceByOwner(id, ownerId);
             modelMap.addAttribute("place", place);
             return "owner-place-single";
         } catch (Exception ex) {

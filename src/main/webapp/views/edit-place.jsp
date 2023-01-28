@@ -67,7 +67,7 @@
                             <label for="place_city">Place City</label>
                         </td>
                         <td>
-                            <select id="place_city" name="place_city" class="input">
+                            <select id="place_city" name="place_city" class="">
                                 <option value="">Select city</option>
                                 <c:forEach items="${cities}" var="city">
                                     <option value="${city}" <c:if test="${city == place.placeCity}">selected</c:if>>

@@ -31,7 +31,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th><h3>Login</h3></th>
+						<th><h3>${user} Login</h3></th>
 						<c:if test="${error==true || success==true}">
 						    ${message}
 						</c:if>
@@ -44,7 +44,7 @@
 							<label for="user_name">Username</label>
 						</td>
 						<td>
-							<input type="email" id="user_email" class="input" name="user_email">
+							<input type="email" placeholder="${user}@example.com" id="user_email" class="input" name="user_email">
 						</td>
 					</tr>
 					<tr>
@@ -52,7 +52,7 @@
 							<label for="user_password">Password</label>
 						</td>
 						<td>
-							<input type="password" id="user_password" class="input" name="user_password">
+							<input type="password" placeholder="Enter your password" id="user_password" class="input" name="user_password">
 						</td>
 					</tr>
 					<tr>

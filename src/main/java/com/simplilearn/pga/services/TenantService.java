@@ -1,6 +1,7 @@
 package com.simplilearn.pga.services;
 
 import com.simplilearn.pga.models.Tenant;
+import com.simplilearn.pga.models.Tenant;
 import com.simplilearn.pga.repositories.TenantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class TenantService {
 
     public Tenant addTenant(Tenant tenant) {
         return repository.save(tenant);
+    }
+
+    public Tenant login(String tenantEmail, String tenantPassword) {
+        Tenant tenant = repository.login(tenantEmail, tenantPassword);
+        return tenant;
     }
 }

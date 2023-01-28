@@ -35,10 +35,10 @@ pageEncoding="UTF-8"%>
     <table>
         <tbody>
             <tr>
-                <th><a href="/places">Places</a></th>
-                <th><a href="/enquiries">Enquiries</a></th>
-                <th><a href="/logout">Log Out</a></th>
-                <th colspan="5"><u style="text-align:right">Welcome, ${adminName}</u></th>
+                <th><a href="/${user}/places">Places</a></th>
+                <th><a href="/${user}/enquiries">Enquiries</a></th>
+                <th><a href="/${user}/logout">Log Out</a></th>
+                <th colspan="5"><u style="text-align:right">Welcome, ${userName}</u></th>
             </tr>
         </tbody>
     </table>

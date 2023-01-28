@@ -1,7 +1,11 @@
 package com.simplilearn.pga.controllers;
 
+import com.simplilearn.pga.models.Enquiry;
+import com.simplilearn.pga.models.Tenant;
 import com.simplilearn.pga.models.Place;
+import com.simplilearn.pga.repositories.PlaceRepository;
 import com.simplilearn.pga.services.PlaceService;
+import com.simplilearn.pga.services.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -17,9 +23,41 @@ import java.util.List;
 public class PlaceController {
     @Autowired
     private PlaceService placeService;
+    @Autowired
+    private TenantService tenantService;
 
     @RequestMapping("/")
-    public String getPlaces(ModelMap modelMap) {
+    private String home(ModelMap modelMap) {
+        modelMap.addAttribute("pagetitle", "Login");
+        modelMap.addAttribute("user", "Tenant");
+        return "login";
+    }
+
+    @RequestMapping("/login")
+    private String login(ModelMap modelMap,
+                         HttpServletRequest request,
+                         @RequestParam(value = "user_email", required = true) String user_email,
+                         @RequestParam(value = "user_password", required = true) String user_password) {
+        modelMap.addAttribute("pagetitle", "Login");
+        Tenant tenant = tenantService.login(user_email, user_password);
+        if (tenant == null) {
+            modelMap.addAttribute("error", true);
+            modelMap.addAttribute("message", "Invalid Credentials! Please try again.");
+            return "login";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("tenantId", tenant.getTenantId());
+        session.setAttribute("userName", tenant.getTenantName());
+        session.setAttribute("user", "pg");
+        return "redirect:places";
+    }
+
+    @RequestMapping("/places")
+    public String getPlaces(ModelMap modelMap, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("tenantId") == null) {
+            return "redirect:/pg/";
+        }
         List<Place> places = null;
         try {
             places = placeService.getAllPlaces();
@@ -33,26 +71,56 @@ public class PlaceController {
     }
 
     @RequestMapping("/details/{place_id}")
-    public String getPlaceDetails(ModelMap modelMap,
+    public String getPlaceDetails(ModelMap modelMap, HttpServletRequest request,
                                   @PathVariable Long place_id) {
-
+        HttpSession session = request.getSession();
+        if (session.getAttribute("tenantId") == null) {
+            return "redirect:/pg/";
+        }
+        Tenant tenant = tenantService.getTenant((Long) session.getAttribute("tenantId"));
         Place place = placeService.getPlaceById(place_id);
+        Enquiry enquiry = new Enquiry(tenant, place);
+        placeService.markEnquiry(enquiry);
         modelMap.addAttribute("place", place);
         return "place-single";
     }
 
     @RequestMapping("/search")
-    public List<Place> getPlacesByLocality(ModelMap modelMap,
-                                           @RequestParam("locality") String place_locality) {
+    public String getPlacesByLocality(ModelMap modelMap, HttpServletRequest request,
+                                      @RequestParam("locality") String place_locality) {
 
+        HttpSession session = request.getSession();
+        if (session.getAttribute("tenantId") == null) {
+            return "redirect:/pg/";
+        }
         List<Place> places = null;
         try {
             places = placeService.getPlaceByLocality(place_locality);
-            return places;
+            return "place-list";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);
             modelMap.addAttribute("message", "NO DATA FOUND");
-            return places;
+            return "place-list";
+        }
+    }
+
+    @RequestMapping("/enquiries")
+    public String getMyEnquiries(ModelMap modelMap, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if (session.getAttribute("tenantId") == null) {
+            return "redirect:/pg/";
+        }
+        List<Enquiry> enquiries = null;
+        try {
+            Long tenant_id = (Long) session.getAttribute("tenantId");
+            enquiries = placeService.getEnquiries(tenant_id);
+            modelMap.addAttribute("enquiries", enquiries);
+            return "enquiry-list";
+        } catch (Exception ex) {
+            modelMap.addAttribute("error", true);
+            modelMap.addAttribute("message", "NO DATA FOUND");
+            return "enquiry-list";
         }
     }
 }
