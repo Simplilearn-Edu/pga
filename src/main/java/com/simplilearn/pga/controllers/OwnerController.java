@@ -10,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 //@RestController
@@ -22,6 +25,37 @@ public class OwnerController {
     OwnerService ownerService;
 
     @RequestMapping("/")
+    private String home(ModelMap modelMap) {
+        modelMap.addAttribute("pagetitle", "Login");
+        return "login";
+    }
+
+    @RequestMapping("/login")
+    private String login(ModelMap modelMap,
+                         HttpServletRequest request,
+                         @RequestParam(value = "user_email", required = true) String user_email,
+                         @RequestParam(value = "user_password", required = true) String user_password) {
+        modelMap.addAttribute("pagetitle", "Login");
+        Owner owner = ownerService.login(user_email, user_password);
+        if (owner == null) {
+            modelMap.addAttribute("error", true);
+            modelMap.addAttribute("message", "Invalid Credentials! Please try again.");
+            return "login";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("ownerId", owner.getOwnerId());
+        session.setAttribute("ownerName", owner.getOwnerName());
+        return "redirect:places";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(ModelMap modelMap, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    /*@RequestMapping("/")
     public List<Owner> getOwner(ModelMap modelMap) {
         List<Owner> owners = null;
         try {
@@ -67,9 +101,13 @@ public class OwnerController {
         System.out.println(owner.getOwnerAddress() + owner.getOwnerName() + owner.getOwnerGender());
         return ownerService.addOwner(owner);
     }
-
+*/
     @RequestMapping("/places/add-new")
-    public String addPlaces(ModelMap modelMap) {
+    public String addPlaces(ModelMap modelMap, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/";
+        }
 
         String[] cities = {"Delhi", "Mumbai", "Pune", "Bengaluru", "Hyderabad", "Chennai", "Surat"};
         modelMap.addAttribute("cities", cities);
@@ -81,11 +119,18 @@ public class OwnerController {
                             @RequestParam("place_name") String place_name,
                             @RequestParam("place_address") String place_address,
                             @RequestParam("place_city") String place_city,
-                            @RequestParam("place_rent") int place_rent) {
-        Owner owner = ownerService.getOwner(2l);
+                            @RequestParam("place_rent") int place_rent,
+                            HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/";
+        }
+        long ownerId = (Long) session.getAttribute("ownerId");
+        Owner owner = ownerService.getOwner(ownerId);
         Place place = new Place(place_name, place_address, place_city, place_rent, true, owner);
         ownerService.addPlace(place);
-        return "redirect:/owner/places";
+        return "redirect:places";
     }
 
     @RequestMapping("/places/edit-place/{place_id}")

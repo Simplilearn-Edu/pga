@@ -49,4 +49,9 @@ public class OwnerService {
     public void deletePlace(Long placeId) {
         placeRepository.deleteById(placeId);
     }
+
+    public Owner login(String ownerEmail, String ownerPassword) {
+        Owner owner = repository.login(ownerEmail, ownerPassword);
+        return owner;
+    }
 }

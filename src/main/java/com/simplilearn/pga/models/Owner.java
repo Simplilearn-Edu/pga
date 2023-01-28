@@ -11,23 +11,36 @@ public class Owner {
     private Long ownerId;
     @Column(name = "owner_name")
     private String ownerName;
+    @Column(name = "owner_email")
+    private String ownerEmail;
+    @Column(name = "owner_mobile_no")
+    private String ownerMobileNo;
+    @Column(name = "owner_password")
+    private String ownerPassword;
     @Column(name = "ownerGender")
     private String ownerGender;
     @Column(name = "owner_address")
     private String ownerAddress;
 
+
     public Owner() {
     }
 
-    public Owner(String ownerName, String ownerGender, String ownerAddress) {
+    public Owner(String ownerName, String ownerEmail, String ownerMobileNo, String ownerPassword, String ownerGender, String ownerAddress) {
         this.ownerName = ownerName;
+        this.ownerEmail = ownerEmail;
+        this.ownerMobileNo = ownerMobileNo;
+        this.ownerPassword = ownerPassword;
         this.ownerGender = ownerGender;
         this.ownerAddress = ownerAddress;
     }
 
-    public Owner(Long ownerId, String ownerName, String ownerGender, String ownerAddress) {
+    public Owner(Long ownerId, String ownerName, String ownerEmail, String ownerMobileNo, String ownerPassword, String ownerGender, String ownerAddress) {
         this.ownerId = ownerId;
         this.ownerName = ownerName;
+        this.ownerEmail = ownerEmail;
+        this.ownerMobileNo = ownerMobileNo;
+        this.ownerPassword = ownerPassword;
         this.ownerGender = ownerGender;
         this.ownerAddress = ownerAddress;
     }
@@ -62,5 +75,29 @@ public class Owner {
 
     public void setOwnerAddress(String ownerAddress) {
         this.ownerAddress = ownerAddress;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    public String getOwnerMobileNo() {
+        return ownerMobileNo;
+    }
+
+    public void setOwnerMobileNo(String ownerMobileNo) {
+        this.ownerMobileNo = ownerMobileNo;
+    }
+
+    public String getOwnerPassword() {
+        return ownerPassword;
+    }
+
+    public void setOwnerPassword(String ownerPassword) {
+        this.ownerPassword = ownerPassword;
     }
 }

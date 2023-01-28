@@ -25,7 +25,7 @@
         <table>
             <thead>
                 <tr>
-                    <td colspan="6"><a href="places/add-new" style="float:right"><button>Add New Places</button></a></td>
+                    <td colspan="7"><a href="places/add-new" style="float:right"><button>Add New Places</button></a></td>
                 </tr>
                 <tr>
                     <th>ID</th>
@@ -56,7 +56,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="6">${message}</td>
+                    <td colspan="7">${message}</td>
                 </tr>
             </tfoot>
         </table>
