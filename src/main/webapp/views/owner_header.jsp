@@ -8,7 +8,9 @@ pageEncoding="UTF-8"%>
     <meta charset="UTF-8">
     <title>Header</title>
     <style type="text/css">
-
+        html,body{
+            font-family:arial;
+        }
 		.formdiv{
 			padding: 8px;
 			border: 1px solid black;

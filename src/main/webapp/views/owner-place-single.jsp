@@ -30,45 +30,22 @@
     		</thead>
     		<tbody>
     			<tr>
-    				<th>ID</th>
+    				<td>ID</td>
     				<td>${place.placeId}</td>
                 </tr>
                 <tr>
-                    <th>Address</th>
+                    <td>Address</td>
                     <td>${place.placeAddress}</td>
                 </tr>
                 <tr>
-                    <th>City</th>
-                    <td>${place.placeCity}</td>
-                </tr>
-                <tr>
-                    <th>Rent</th>
+                    <td>Rent</td>
                     <td>${place.placeRent}</td>
                 </tr>
                 <tr>
-                    <th>Status</th>
+                    <td>Status</td>
                     <td>${place.placeStatus}</td>
                 </tr>
     		</tbody>
-    	</table>
-
-        <h2>About the Owner</h2>
-
-    	<table>
-    	    <tbody>
-                <tr>
-                    <th>Owner's Name</th>
-                    <td>${place.placeOwner.getOwnerName()}</td>
-                </tr>
-                <tr>
-                    <th>Mobile Number</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td></td>
-                </tr>
-    	    </tbody>
     	</table>
     </body>
 </html>

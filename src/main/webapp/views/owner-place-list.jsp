@@ -25,6 +25,9 @@
         <table>
             <thead>
                 <tr>
+                    <td colspan="6"><a href="places/add-new" style="float:right"><button>Add New Places</button></a></td>
+                </tr>
+                <tr>
                     <th>ID</th>
                     <th>Name of PG Place</th>
                     <th>Address</th>
@@ -44,7 +47,9 @@
                     <td>${place.placeRent}</td>
                     <td><c:if test="${place.placeStatus==true}">Available</c:if></td>
                     <td>
-                        <a href="details/${place.placeId}"><button>View</button></a>
+                        <a href="places/${place.placeId}"><button>View</button></a>
+                        <a href="places/edit-place/${place.placeId}"><button>Edit</button></a>
+                        <a href="places/delete/${place.placeId}"><button>Delete</button></a>
                     </td>
                 </tr>
                 </c:forEach>

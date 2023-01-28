@@ -130,11 +130,11 @@ public class OwnerController {
             places = ownerService.getAllPlacesByOwner(1l);
             modelMap.addAttribute("places", places);
             modelMap.addAttribute("message", "TOTAL " + places.size() + " RECORDS FOUND");
-            return "place-list";
+            return "owner-place-list";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);
             modelMap.addAttribute("message", "NO DATA FOUND");
-            return "place-list";
+            return "owner-place-list";
         }
     }
 
@@ -144,11 +144,11 @@ public class OwnerController {
         try {
             place = ownerService.getPlaceByOwner(id, 1l);
             modelMap.addAttribute("place", place);
-            return "place-single";
+            return "owner-place-single";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);
             modelMap.addAttribute("message", "NO DATA FOUND");
-            return "place-single";
+            return "owner-place-single";
         }
     }
 }
