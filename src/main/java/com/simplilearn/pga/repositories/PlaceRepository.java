@@ -2,9 +2,7 @@ package com.simplilearn.pga.repositories;
 
 import com.simplilearn.pga.models.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

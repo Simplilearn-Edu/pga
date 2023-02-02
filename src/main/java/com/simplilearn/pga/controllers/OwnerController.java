@@ -1,5 +1,6 @@
 package com.simplilearn.pga.controllers;
 
+import com.simplilearn.pga.models.Enquiry;
 import com.simplilearn.pga.models.Owner;
 import com.simplilearn.pga.models.Place;
 import com.simplilearn.pga.services.OwnerService;
@@ -227,5 +228,22 @@ public class OwnerController {
             modelMap.addAttribute("message", "NO DATA FOUND");
             return "owner-place-single";
         }
+    }
+
+    @RequestMapping("/enquiries")
+    public String getAllEnquiries(ModelMap modelMap, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("ownerId") == null) {
+            return "redirect:/owner/";
+        }
+        long ownerId = (Long) session.getAttribute("ownerId");
+        try {
+            List<Enquiry> enquiries = ownerService.getEnquiries(ownerId);
+            modelMap.addAttribute("enquiries", enquiries);
+        } catch (Exception ex) {
+            modelMap.addAttribute("error", true);
+            modelMap.addAttribute("message", "NO DATA FOUND");
+        }
+        return "owner-enquiry-list";
     }
 }

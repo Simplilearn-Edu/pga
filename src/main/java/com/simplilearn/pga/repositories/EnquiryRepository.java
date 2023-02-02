@@ -12,4 +12,8 @@ public interface EnquiryRepository extends CrudRepository<Enquiry, Long> {
 
     @Query("select e from Enquiry e where e.tenant.tenantId = ?1")
     List<Enquiry> findByTenant(Long tenantId);
+
+    @Query("select e from Enquiry e where e.place.placeOwner.ownerId = ?1 order by e.enquiryId DESC")
+    List<Enquiry> findEnquiriesByOwner(Long ownerId);
+
 }

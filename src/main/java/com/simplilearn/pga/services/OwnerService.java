@@ -1,7 +1,9 @@
 package com.simplilearn.pga.services;
 
+import com.simplilearn.pga.models.Enquiry;
 import com.simplilearn.pga.models.Owner;
 import com.simplilearn.pga.models.Place;
+import com.simplilearn.pga.repositories.EnquiryRepository;
 import com.simplilearn.pga.repositories.OwnerRepository;
 import com.simplilearn.pga.repositories.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class OwnerService {
     OwnerRepository repository;
     @Autowired
     private PlaceRepository placeRepository;
+    @Autowired
+    private EnquiryRepository enquiryRepository;
 
     public List<Owner> getAllOwners() {
         List<Owner> owners = new ArrayList<Owner>();
@@ -48,6 +52,10 @@ public class OwnerService {
 
     public void deletePlace(Long placeId) {
         placeRepository.deleteById(placeId);
+    }
+
+    public List<Enquiry> getEnquiries(Long ownerId) {
+        return enquiryRepository.findEnquiriesByOwner(ownerId);
     }
 
     public Owner login(String ownerEmail, String ownerPassword) {
