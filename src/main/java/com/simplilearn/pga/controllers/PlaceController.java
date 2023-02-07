@@ -115,6 +115,7 @@ public class PlaceController {
             Long tenant_id = (Long) session.getAttribute("tenantId");
             enquiries = placeService.getEnquiries(tenant_id);
             modelMap.addAttribute("enquiries", enquiries);
+            modelMap.addAttribute("message", "TOTAL " + enquiries.size() + " RECORDS FOUND.");
             return "enquiry-list";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);

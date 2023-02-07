@@ -21,7 +21,7 @@
         <c:if test="${error==true || success==true}">
             ${message}
         </c:if>
-        <h2>PG Places</h2>
+        <h2>PG Enquiries</h2>
         <table>
             <thead>
                 <tr>
@@ -36,7 +36,7 @@
                 <tr>
                     <td>${enquiry.enquiryId}</td>
                     <td>${enquiry.place.placeName}</td>
-                    <td><c:if test="${enquiry.place.placeStatus==true}">Available</c:if></td>
+                    <td>${place.placeStatus==true?"Available":"Occupied"}</td>
                     <td>
                         <a href="details/${enquiry.place.placeId}"><button>View Place</button></a>
                     </td>
