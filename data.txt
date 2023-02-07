@@ -1,0 +1,30 @@
+1	New Highway, Near view shopping mall, Mumbai	Harman Estate	0	1	2000	Mumbai
+2	Cross Road, Pune	GetSetPG	1	2	7500	Pune
+3	South Way Gate, Hyderabad	HMD	1	4	8200	Hyderabad
+4	80 Feet Road, Bengaluru	SK PG	1	3	4500	Bengaluru
+5	IT Park, Chennai	BR Campus	1	2	7200	Chennai
+6	North City, Bengaluru	ASH Co	1	2	3500	Bengaluru
+7	XYZ Road, Pune	Pulse PG	1	2	8000	Pune
+8	Example Colony, Mumbai	Rest House	1	1	6000	Mumbai
+9	City West, Mumbai	H Nest	0	1	6700	Mumbai
+
+
+
+
+
+1	Solapur	male	Waseem	tenant@example.com	tenant123
+2	Rio	male	Alex	alex@example.com	tenant123
+					
+
+1	Mumbai	M	Aman	owner@example.com	9012345670	owner123
+2	Pune	M	Piyush	owner@gmail.com	9012345671	owner123
+3	Bengaluru	F	Saroj	owner@yahoo.com	9012345672	owner123
+4	Hyderabad	M	Satish	owner@sample.com	9012345673	owner123
+5	Chennai	M	Ramesh	owner@chennai.com	9012345674	owner123
+						
+
+1	1	1
+3	2	1
+4	8	1
+2	9	1
+		
