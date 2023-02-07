@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
             <td>${enquiry.enquiryId}</td>
             <td>${enquiry.place.placeName}</td>
             <td>${enquiry.tenant.tenantName}</td>
-            <td><c:if test="${enquiry.place.placeStatus==true}">Available</c:if></td>
+            <td>${place.placeStatus==true?"Available":"Occupied"}</td>
             <td>
                 <a href="places/${enquiry.place.placeId}"><button>View Place</button></a>
                 <a href="tenant/${enquiry.tenant.tenantId}"><button>View Tenant</button></a>
