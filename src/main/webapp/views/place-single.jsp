@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                     <th>Status</th>
-                    <td>${place.placeStatus}</td>
+                    <td>${place.placeStatus==true?"Available":"Occupied"}</td>
                 </tr>
     		</tbody>
     	</table>
@@ -62,11 +62,11 @@
                 </tr>
                 <tr>
                     <th>Mobile Number</th>
-                    <td></td>
+                    <td>${place.placeOwner.getOwnerMobileNo()}</td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td></td>
+                    <td>${place.placeOwner.getOwnerEmail()}</td>
                 </tr>
     	    </tbody>
     	</table>

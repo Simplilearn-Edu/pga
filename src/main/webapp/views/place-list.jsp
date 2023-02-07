@@ -15,7 +15,7 @@
         		}
         		.input{
                     width: 300px;
-                    padding: 8px;
+                    height: 40px;
                 }
         </style>
     </head>
@@ -31,7 +31,7 @@
                 <tr>
                     <td colspan="7">
                         <form action="/pg/search">
-                            <input type="search" class="input" name="locality">
+                            <input type="search" class="input" name="locality" placeholder="ENTER THE LOCALITY TO SEARCH">
                             <input type="submit">
                         </form>
                     </td>
