@@ -54,7 +54,7 @@
                     <td>${place.placeAddress}</td>
                     <td>${place.placeCity}</td>
                     <td>${place.placeRent}</td>
-                    <td><c:if test="${place.placeStatus==true}">Available</c:if></td>
+                    <td>${place.placeStatus==true?"Available":"Occupied"}</td>
                     <td>
                         <a href="details/${place.placeId}"><button>View</button></a>
                     </td>
@@ -63,7 +63,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="6">${message}</td>
+                    <td colspan="7">${message}</td>
                 </tr>
             </tfoot>
         </table>

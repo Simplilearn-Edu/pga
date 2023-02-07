@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td>${place.placeStatus}</td>
+                    <td>${place.placeStatus==true?"Available":"Occupied"}</td>
                 </tr>
     		</tbody>
     	</table>

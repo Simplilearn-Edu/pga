@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -41,26 +40,5 @@ public class TenantController {
             modelMap.addAttribute("message", "NO DATA FOUND");
             return tenant;
         }
-    }
-
-    @RequestMapping("/add")
-    public Tenant addTenant(ModelMap modelMap,
-                            @RequestParam("tenant_name") String tenant_name,
-                            @RequestParam("tenant_gender") String tenant_gender,
-                            @RequestParam("tenant_address") String tenant_address) {
-        Tenant tenant = new Tenant(tenant_name, tenant_gender, tenant_address);
-        System.out.println(tenant.getTenantAddress() + tenant.getTenantName() + tenant.getTenantGender());
-        return tenantService.addTenant(tenant);
-    }
-
-    @RequestMapping("/edit")
-    public Tenant editTenant(ModelMap modelMap,
-                             @RequestParam("tenant_id") Long tenant_id,
-                             @RequestParam("tenant_name") String tenant_name,
-                             @RequestParam("tenant_gender") String tenant_gender,
-                             @RequestParam("tenant_address") String tenant_address) {
-        Tenant tenant = new Tenant(tenant_id, tenant_name, tenant_gender, tenant_address);
-        System.out.println(tenant.getTenantAddress() + tenant.getTenantName() + tenant.getTenantGender());
-        return tenantService.addTenant(tenant);
     }
 }

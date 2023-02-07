@@ -56,56 +56,9 @@ public class OwnerController {
     public String logout(ModelMap modelMap, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        return "redirect:/owner/";
+        return "redirect:/";
     }
 
-    /*@RequestMapping("/")
-    public List<Owner> getOwner(ModelMap modelMap) {
-        List<Owner> owners = null;
-        try {
-            owners = ownerService.getAllOwners();
-            return owners;
-        } catch (Exception ex) {
-            modelMap.addAttribute("error", true);
-            modelMap.addAttribute("message", "NO DATA FOUND");
-            return owners;
-        }
-    }
-
-    @RequestMapping("/{owner_id}")
-    public Owner getOwner(ModelMap modelMap, @PathVariable Long owner_id) {
-        Owner owner = null;
-        try {
-            owner = ownerService.getOwner(owner_id);
-            return owner;
-        } catch (Exception ex) {
-            modelMap.addAttribute("error", true);
-            modelMap.addAttribute("message", "NO DATA FOUND");
-            return owner;
-        }
-    }
-
-    @RequestMapping("/add")
-    public Owner addOwner(ModelMap modelMap,
-                          @RequestParam("owner_name") String owner_name,
-                          @RequestParam("owner_gender") String owner_gender,
-                          @RequestParam("owner_address") String owner_address) {
-        Owner owner = new Owner(owner_name, owner_gender, owner_address);
-        System.out.println(owner.getOwnerAddress() + owner.getOwnerName() + owner.getOwnerGender());
-        return ownerService.addOwner(owner);
-    }
-
-    @RequestMapping("/edit")
-    public Owner editOwner(ModelMap modelMap,
-                           @RequestParam("owner_id") Long owner_id,
-                           @RequestParam("owner_name") String owner_name,
-                           @RequestParam("owner_gender") String owner_gender,
-                           @RequestParam("owner_address") String owner_address) {
-        Owner owner = new Owner(owner_id, owner_name, owner_gender, owner_address);
-        System.out.println(owner.getOwnerAddress() + owner.getOwnerName() + owner.getOwnerGender());
-        return ownerService.addOwner(owner);
-    }
-*/
     @RequestMapping("/places/add-new")
     public String addPlaces(ModelMap modelMap, HttpServletRequest request) {
         HttpSession session = request.getSession();

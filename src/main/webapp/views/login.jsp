@@ -10,17 +10,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>${pagetitle}</title>
 	<style type="text/css">
+	    body{
+            font-family:"Arial"
+        }
+
 		.formdiv{
 			padding: 8px;
 			border: 1px solid black;
 			display: inline-block;
 
 			margin: auto;
-			/*width: 50%;*/
 		}
 
 		.input{
 			height: 20px;
+			padding:8px;
 			width: 300px;
 		}
 	</style>
@@ -35,7 +39,6 @@
 						<c:if test="${error==true || success==true}">
 						    ${message}
 						</c:if>
-
 					</tr>
 				</thead>
 				<tbody>
