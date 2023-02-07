@@ -96,6 +96,8 @@ public class PlaceController {
         List<Place> places = null;
         try {
             places = placeService.getPlaceByLocality(place_locality);
+            modelMap.addAttribute("places",places);
+            modelMap.addAttribute("message", "TOTAL " + places.size() + " RECORDS FOUND.");
             return "place-list";
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);

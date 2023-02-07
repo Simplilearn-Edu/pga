@@ -45,7 +45,7 @@
                     <td>${place.placeAddress}</td>
                     <td>${place.placeCity}</td>
                     <td>${place.placeRent}</td>
-                    <td><c:if test="${place.placeStatus==true}">Available</c:if></td>
+                    <td>${place.placeStatus==true?"Available":"Occupied"}</td>
                     <td>
                         <a href="places/${place.placeId}"><button>View</button></a>
                         <a href="places/edit-place/${place.placeId}"><button>Edit</button></a>

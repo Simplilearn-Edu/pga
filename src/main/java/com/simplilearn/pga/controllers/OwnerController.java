@@ -240,6 +240,7 @@ public class OwnerController {
         try {
             List<Enquiry> enquiries = ownerService.getEnquiries(ownerId);
             modelMap.addAttribute("enquiries", enquiries);
+            modelMap.addAttribute("message", "TOTAL "+enquiries.size()+" ENQUIRIES FOUND.");
         } catch (Exception ex) {
             modelMap.addAttribute("error", true);
             modelMap.addAttribute("message", "NO DATA FOUND");

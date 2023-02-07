@@ -13,6 +13,10 @@
         			padding:8px;
         			text-align: trainer;
         		}
+        		.input{
+                    width: 300px;
+                    padding: 8px;
+                }
         </style>
     </head>
 
@@ -24,6 +28,14 @@
         <h2>PG Places</h2>
         <table>
             <thead>
+                <tr>
+                    <td colspan="7">
+                        <form action="/pg/search">
+                            <input type="search" class="input" name="locality">
+                            <input type="submit">
+                        </form>
+                    </td>
+                </tr>
                 <tr>
                     <th>ID</th>
                     <th>Name of PG Place</th>

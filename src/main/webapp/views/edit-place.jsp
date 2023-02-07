@@ -67,7 +67,7 @@
                             <label for="place_city">Place City</label>
                         </td>
                         <td>
-                            <select id="place_city" name="place_city" class="">
+                            <select id="place_city" name="place_city" class="input" style="padding:0px">
                                 <option value="">Select city</option>
                                 <c:forEach items="${cities}" var="city">
                                     <option value="${city}" <c:if test="${city == place.placeCity}">selected</c:if>>
@@ -83,9 +83,20 @@
                         </td>
                         <td>
                             <input type="number" id="place_rent" class="input" name="place_rent" value="${place.placeRent}">
-                            <input type="hidden" id="place_status" class="input" name="place_status" value="${place.placeStatus}">
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <label for="place_status">Place Availability</label>
+                        </td>
+                        <td>
+                            <label for="place_status_a">Available</label>
+                            <input type="radio" id="place_status_a" name="place_status" value="true" ${place.placeStatus==true?"checked":""}>
+                            <label for="place_status_o">Occupied</label>
+                            <input type="radio" id="place_status_o" name="place_status" value="false" ${place.placeStatus==false?"checked":""}>
+                        </td>
+                    </tr>
+
 					<tr>
 						<td colspan="2"><button type="submit">Submit</button></td>
 					</tr>
